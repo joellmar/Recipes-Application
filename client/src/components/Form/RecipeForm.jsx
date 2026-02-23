@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Form, Container, Row, Col } from "react-bootstrap";
 
+const API = import.meta.env.VITE_API_URL;
+
 const validationSchema = Yup.object({
   nombre: Yup.string().required("El nombre es obligatorio"),
   ingredientes: Yup.string().required("Los ingredientes son obligatorios"),
@@ -28,7 +30,7 @@ const FormularioReceta = () => {
     validationSchema,
     onSubmit: async (values) => {
       try {
-        await axios.post("http://localhost:8080/api/recetas", values);
+        await axios.post(`${API}/api/recetas`, values);
         navigate("/");
       } catch (error) {
         console.error("¡Hubo un error al agregar la nueva receta!", error);
